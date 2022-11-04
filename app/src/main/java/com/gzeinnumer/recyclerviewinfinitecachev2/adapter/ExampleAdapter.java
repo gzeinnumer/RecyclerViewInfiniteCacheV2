@@ -68,16 +68,11 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MyHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+        holder.setIsRecyclable(false);
         holders.set(position, ParamItemBinding.bind(holder.itemBinding.getRoot()));
-//        initLastData(position);
         holder.bind(list.get(position), callBack);
         prepareSpace(holder.itemBinding.cv, position);
     }
-
-//    private void initLastData(int position) {
-//        ParamItemBinding item = holders.get(position);
-//        ParamsModel data = list.get(position);
-//    }
 
     public int intToDp(int sizeInDPH) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, sizeInDPH, context.getResources().getDisplayMetrics());
@@ -147,7 +142,6 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MyHolder
         }
 
         public void bind(ParamsModel data, BaseCallBackAdapter<ParamsModel> callBack) {
-            itemBinding.edAngka1.setText(data.getAngka1());
             itemBinding.edAngka2.addTextChangedListener(new SimpleTextWatcher(s -> {
                 if (s.length()>0){
                     int angka1 = Integer.parseInt(itemBinding.edAngka1.getText().toString());
@@ -157,8 +151,8 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MyHolder
                     itemBinding.edHasil.setText(hasil+"");
 
                     data.setAngka1(angka1+"");
-                    data.setAngka2(angka2+"");
-                    data.setHasil(hasil+"");
+                    data.getResult().setAngka2(angka2+"");
+                    data.getResult().setHasil(hasil+"");
                 }
             }));
             if (callBack != null) {
@@ -168,8 +162,9 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MyHolder
         }
 
         private void putLastData(ParamsModel data) {
-            itemBinding.edAngka2.setText(data.getAngka2());
-            itemBinding.edHasil.setText(data.getHasil());
+            itemBinding.edAngka1.setText(data.getAngka1());
+            itemBinding.edAngka2.setText(data.getResult().getAngka2());
+            itemBinding.edHasil.setText(data.getResult().getHasil());
         }
     }
 }

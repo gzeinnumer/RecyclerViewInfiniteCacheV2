@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRV() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             list.add(new ParamsModel((i+1)+""));
         }
         ExampleAdapter adapter = new ExampleAdapter(list);
@@ -63,5 +63,6 @@ public class MainActivity extends AppCompatActivity {
         binding.rv.setAdapter(adapter);
         binding.rv.hasFixedSize();
         binding.rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        binding.rv.setItemViewCacheSize(list.size());
     }
 }
